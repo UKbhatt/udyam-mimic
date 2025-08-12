@@ -1,10 +1,12 @@
-import './App.css';
+import Navbar from './components/navbar';
+import AadhaarStep from './components/AadhaarStep';
 
-function App() {
+export default function App() {
 
   return (
- <></>
-  )
+    <>
+      <Navbar />
+      <AadhaarStep />
+    </>
+  );
 }
-
-export default App

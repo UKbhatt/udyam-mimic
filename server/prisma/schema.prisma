@@ -1,15 +1,31 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+}
+
+model Submission {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+
+  aadhaar         String
+  nameAsAadhaar   String?
+  aadhaarConsent  Boolean  @default(false)
+  otpVerified     Boolean  @default(false)
+
+  orgType         String?      
+  pan             String
+  nameAsPerPan    String?
+  dobdoiRaw       String?      
+  dobdoi          DateTime?    
+  panConsent      Boolean      @default(false)
+
+  sourceIP        String?
+  payload         Json         
+
+  @@index([pan])
 }

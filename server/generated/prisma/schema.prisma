@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Submission {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  aadhaar        String
+  nameAsAadhaar  String?
+  aadhaarConsent Boolean @default(false)
+  otpVerified    Boolean @default(false)
+
+  orgType      String? // e.g., Proprietorship, Partnership, LLP, Company, HUF, Society/Trust/Other
+  pan          String
+  nameAsPerPan String?
+  dobdoiRaw    String? // keep original "DD/MM/YYYY" the user entered
+  dobdoi       DateTime? // normalized to real date (UTC, optional)
+  panConsent   Boolean   @default(false)
+
+  sourceIP String?
+  payload  Json // full request body for audit/debug
+
+  @@index([pan])
+}

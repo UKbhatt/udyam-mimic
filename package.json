@@ -2,8 +2,9 @@
   "name": "udyam",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start" : "nodemon ./server/index.js"
+    "start": "nodemon ./server/index.js"
   },
   "author": "",
   "license": "ISC",
@@ -12,7 +13,8 @@
     "@prisma/client": "^6.13.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "generate": "^0.14.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
