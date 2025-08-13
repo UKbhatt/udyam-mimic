@@ -5,7 +5,6 @@ export default function Navbar() {
     const [open, setOpen] = useState(false);
 
     const menuItems = [
-        "Home",
         "NIC Code",
         "Useful Documents",
         "Print / Verify",
@@ -15,8 +14,8 @@ export default function Navbar() {
 
     return (
         <div>
-            <nav className="bg-[#4634b8] text-white">
-                <div className="mx-auto max-w-7xl px-4 sm:px-6">
+            <nav className="bg-[#4634b8] text-white h-20">
+                <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3">
                     <div className="flex h-14 items-center justify-between">
                         <a href="/" className="flex items-center gap-3">
                             <img src={logo} alt="Logo" className="h-10 w-10" />
@@ -29,23 +28,36 @@ export default function Navbar() {
                             </div>
                         </a>
 
-                        <ul className="hidden md:flex items-center gap-6">
+                        <ul className="hidden md:flex items-center gap-10 font-bold">
+                            <li className="relative group cursor-pointer opacity-100 text-white hover:opacity-100 
+                            hover:text-white">
+                                <span className="text-[15px]">HOME</span>
+                                <span
+                                    className="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full bg-white
+                                                transition-all duration-300 ease-out
+                                                group-hover:w-full group-hover:left-0"
+                                />
+                            </li>
                             {menuItems.map((item) => (
-                                <li key={item} className="relative group cursor-pointer select-none">
+                                <li
+                                    key={item}
+                                    className="relative group cursor-pointer select-none opacity-50 hover:opacity-100 
+                                    hover:text-white"
+                                >
                                     <span className="text-[15px]">{item}</span>
                                     <span
                                         className="
-                                    pointer-events-none absolute left-1/2 -bottom-1 h-[2px] w-0 bg-white
-                                    transition-all duration-300 ease-out
-                    group-hover:w-full group-hover:left-0
-                    "
+                                            pointer-events-none absolute left-1 -bottom-1 h-[2px] w-0 bg-white
+                                            transition-all duration-300 ease-out
+                                            group-hover:w-full group-hover:left-0"
                                     />
                                 </li>
                             ))}
                         </ul>
 
                         <button
-                            className="md:hidden inline-flex items-center justify-center rounded-md p-2 hover:bg-white/10 focus:outline-none"
+                            className="md:hidden inline-flex items-center justify-center rounded-md p-2 hover:bg-white/10 
+                            focus:outline-none"
                             aria-expanded={open}
                             aria-label="Toggle menu"
                             onClick={() => setOpen((v) => !v)}
@@ -90,7 +102,7 @@ export default function Navbar() {
                 </div>
             </nav>
             <div className="bg-[#f5f6fa] py-6">
-                <h1 className="text-center text-2xl font-semibold text-[#3F3FAD]">
+                <h1 className="text-center text-2xl font-semibold  text-[#3F3FAD]">
                     UDYAM REGISTRATION FORM - For New Enterprise who are not Registered yet as MSME
                 </h1>
             </div>
