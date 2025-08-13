@@ -27,7 +27,7 @@ export function useRegistration(defaultValues) {
   const validAadhaar = AadhaarRe.test(form.aadhaar);
   const canSendOtp = validAadhaar && form.consent && !loading;
 
-  const aadhaarLocked = step >= 3;
+  const aadhaarLocked = step >= 2;
   const panLocked = step >= 4;
 
   function updateForm(key, val) {

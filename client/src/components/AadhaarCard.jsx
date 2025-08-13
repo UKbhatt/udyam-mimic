@@ -1,13 +1,18 @@
+import OtpCard from "./OtpCard";
+
 export default function AadhaarCard({
   form, updateForm, err,
   canSendOtp, aadhaarLocked, loading, step,
-  sendOtp,
+  sendOtp, setOtp,
+  verifyOtp,
+  otp,
+  otpErr,
 }) {
   const validAadhaar = /^[0-9]{12}$/.test(form.aadhaar);
 
   return (
-    <section className={`bg-white  border border-gray-200 ${aadhaarLocked ? "opacity-75" : ""}`}>
-      <div className="rounded-t-lg bg-[#2175f5] px-4 py-2 text-white font-semibold border-b">
+    <section className={`bg-white border border-gray-200 ${aadhaarLocked ? "opacity-75" : ""}`}>
+      <div className="rounded-sm bg-blue-500 px-4 py-2 text-white font-normal border-b h-12 items-center">
         Aadhaar Verification With OTP
       </div>
 
@@ -15,14 +20,14 @@ export default function AadhaarCard({
         <form onSubmit={sendOtp} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block font-semibold mb-1">1. Aadhaar Number/ आधार संख्या</label>
+              <label className="block font-bold mb-1 text-sm">1. Aadhaar Number/ आधार संख्या</label>
               <input
                 type="text"
                 inputMode="numeric"
                 maxLength={12}
                 placeholder="Your Aadhaar No"
                 className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 
-                  ${aadhaarLocked ? "bg-gray-100 cursor-not-allowed border-gray-200" : "bg-white border-gray-300"
+                  ${aadhaarLocked ? "bg-gray-400 cursor-not-allowed border-gray-200" : "bg-white border-gray-300"
                   }`}
                 value={form.aadhaar}
                 readOnly={aadhaarLocked}
@@ -34,12 +39,12 @@ export default function AadhaarCard({
             </div>
 
             <div>
-              <label className="block font-semibold mb-1">2. Name of Entrepreneur / उद्यमी का नाम</label>
+              <label className="block font-bold mb-1 text-sm">2. Name of Entrepreneur / उद्यमी का नाम</label>
               <input
                 type="text"
                 placeholder="Name as per Aadhaar"
                 className={`w-full rounded-md border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 
-                  ${aadhaarLocked ? "bg-gray-100 cursor-not-allowed border-gray-200" : "bg-white border-gray-300"
+                  ${aadhaarLocked ? "bg-gray-400 cursor-not-allowed border-gray-400" : "bg-white border-gray-300"
                   }`}
                 value={form.name}
                 readOnly={aadhaarLocked}
@@ -53,10 +58,11 @@ export default function AadhaarCard({
             <li>The Aadhaar number shall be of the proprietor in the case of a proprietorship firm, of the managing
               partner in the case of a partnership firm and of a karta in the case of a Hindu Undivided Family (HUF).</li>
             <li>
-              In case of a Company or a Limited Liability Partnership or a Cooperative Society or a Society or a Trust, 
+              In case of a Company or a Limited Liability Partnership or a Cooperative Society or a Society or a Trust,
               the organisation or its authorised signatory
-              shall provide its GSTIN(As per applicablity of CGST Act 2017 and as notified by the ministry of MSME.{" "}
-              <a className="text-blue-600 underline" href="https://udyamregistration.gov.in/UdyamRegistration.aspx" target="_blank" rel="noreferrer">
+              shall provide its GSTIN(As per applicablity of CGST Act 2017 and as notified by the ministry of MSME{" "}
+              <a className="text-blue-600 underline" href="https://udyamregistration.gov.in/UdyamRegistration.aspx" 
+              target="_blank" rel="noreferrer">
                 vide S.O. 1055(E) dated 05th March 2021
               </a>
               ) and PAN along with its Aadhaar number.
@@ -75,7 +81,7 @@ export default function AadhaarCard({
             <span>
               I, the holder of the above Aadhaar, hereby give my consent to Ministry of MSME, Government of India,
               for using my Aadhaar number as alloted by UIDAI for Udyam Registration. NIC / Ministry of MSME, Government of
-              India, have informed me that my aadhaar data will not be stored/shared. / मैं, आधार धारक, इस प्रकार उद्यम पंजीकरण 
+              India, have informed me that my aadhaar data will not be stored/shared. / मैं, आधार धारक, इस प्रकार उद्यम पंजीकरण
               के लिए यूआईडीएआई के साथ अपने आधार संख्या का उपयोग करने के लिए सू0ल0म0उ0 मंत्रालय, भारत सरकार को अपनी सहमति देता हूं।
               एनआईसी / सू0ल0म0उ0 मंत्रालय, भारत सरकार ने मुझे सूचित किया है कि मेरा आधार डेटा संग्रहीत / साझा नहीं किया जाएगा।
             </span>
@@ -87,14 +93,27 @@ export default function AadhaarCard({
             <button
               type="submit"
               disabled={!canSendOtp}
-              className={`inline-flex items-center rounded-md px-4 py-2 text-white ${canSendOtp ? "bg-[#1F6AE5] hover:bg-[#1858bd]" : "bg-[#1F6AE5]/60 cursor-not-allowed"
-                }`}
+              className={`inline-flex items-center rounded-md px-4 py-2 text-white 
+                hover:bg-[#1556bf] bg-[#2c77ef] duration-100`}
             >
-              
               {loading ? "Sending OTP..." : "Validate & Generate OTP"}
             </button>
           )}
         </form>
+        <OtpCard
+          step={step}
+          loading={loading}
+          otp={otp}
+          setOtp={setOtp}
+          otpErr={otpErr}
+          verifyOtp={verifyOtp}
+        />
+
+        {step === 3 && (
+          <p className="text-green-700 font-bold">
+            Your Aadhaar has been successfully verified. You can continue Udyam Registration process.
+          </p>
+        )}
       </div>
     </section>
   );
