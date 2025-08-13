@@ -4,28 +4,35 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Submission {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
 
+  // Step 1 (Aadhaar)
   aadhaar        String
   nameAsAadhaar  String?
   aadhaarConsent Boolean @default(false)
   otpVerified    Boolean @default(false)
 
-  orgType      String? // e.g., Proprietorship, Partnership, LLP, Company, HUF, Society/Trust/Other
+  // Step 3 (PAN)
+  orgType      String?
   pan          String
   nameAsPerPan String?
-  dobdoiRaw    String? // keep original "DD/MM/YYYY" the user entered
-  dobdoi       DateTime? // normalized to real date (UTC, optional)
+  dobdoiRaw    String?
+  dobdoi       DateTime?
   panConsent   Boolean   @default(false)
 
+  // Meta
   sourceIP String?
-  payload  Json // full request body for audit/debug
+  payload  Json
+  // Optional extra indexes if you’ll query by these often:
+  // @@index([aadhaar])
+  // @@index([createdAt])
 
   @@index([pan])
 }

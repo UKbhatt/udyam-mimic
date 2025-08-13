@@ -177,6 +177,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -185,8 +186,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Submission {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n\n  aadhaar        String\n  nameAsAadhaar  String?\n  aadhaarConsent Boolean @default(false)\n  otpVerified    Boolean @default(false)\n\n  orgType      String? // e.g., Proprietorship, Partnership, LLP, Company, HUF, Society/Trust/Other\n  pan          String\n  nameAsPerPan String?\n  dobdoiRaw    String? // keep original \"DD/MM/YYYY\" the user entered\n  dobdoi       DateTime? // normalized to real date (UTC, optional)\n  panConsent   Boolean   @default(false)\n\n  sourceIP String?\n  payload  Json // full request body for audit/debug\n\n  @@index([pan])\n}\n",
-  "inlineSchemaHash": "9fb00a036cdf6fc5624d439dd9b801d81d98937d07e7b6e6f962e4dac1d90a94",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = env(\"DATABASE_URL\")\n  directUrl = env(\"DIRECT_URL\")\n}\n\nmodel Submission {\n  id        String   @id @default(cuid())\n  createdAt DateTime @default(now())\n\n  // Step 1 (Aadhaar)\n  aadhaar        String\n  nameAsAadhaar  String?\n  aadhaarConsent Boolean @default(false)\n  otpVerified    Boolean @default(false)\n\n  // Step 3 (PAN)\n  orgType      String?\n  pan          String\n  nameAsPerPan String?\n  dobdoiRaw    String?\n  dobdoi       DateTime?\n  panConsent   Boolean   @default(false)\n\n  // Meta\n  sourceIP String?\n  payload  Json\n  // Optional extra indexes if you’ll query by these often:\n  // @@index([aadhaar])\n  // @@index([createdAt])\n\n  @@index([pan])\n}\n",
+  "inlineSchemaHash": "7a4785081cb3622f81b82a2ede60517ee89e580793110e5bbb94e83a330ee0e9",
   "copyEngine": true
 }
 config.dirname = '/'

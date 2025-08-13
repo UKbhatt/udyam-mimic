@@ -1,31 +1,34 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")   
 }
 
 model Submission {
   id              String   @id @default(cuid())
   createdAt       DateTime @default(now())
 
+
   aadhaar         String
   nameAsAadhaar   String?
   aadhaarConsent  Boolean  @default(false)
   otpVerified     Boolean  @default(false)
 
-  orgType         String?      
+
+  orgType         String?
   pan             String
   nameAsPerPan    String?
-  dobdoiRaw       String?      
-  dobdoi          DateTime?    
-  panConsent      Boolean      @default(false)
+  dobdoiRaw       String?
+  dobdoi          DateTime?
+  panConsent      Boolean  @default(false)
+
 
   sourceIP        String?
-  payload         Json         
+  payload         Json
 
   @@index([pan])
 }
