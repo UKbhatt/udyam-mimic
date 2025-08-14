@@ -12,11 +12,11 @@ export function buildApp() {
   app.use(cors(CORS_OPTIONS));
   app.use(express.json());
 
-  app.use('/health', healthRouter);
-  app.use('/api/otp', otpRouter);
-  app.use('/api/submit', submissionRouter);
+  app.use('/health', healthRouter); // health route
+  app.use('/api/otp', otpRouter); // otp route
+  app.use('/api/submit', submissionRouter); // submission route
 
-  app.use(errorHandler);
+  app.use(errorHandler); ; // error-Handling route
 
   return app;
 }

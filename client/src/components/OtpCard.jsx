@@ -3,6 +3,7 @@ export default function OtpCard({ step, loading, otp, setOtp, otpErr, verifyOtp 
 
   return (
     <form onSubmit={verifyOtp} className="space-y-4">
+      {/* Opt Card */}
       <div>
         <div className="flex items-center gap-1">
           <p className="text-red-600">*</p>
@@ -23,7 +24,7 @@ export default function OtpCard({ step, loading, otp, setOtp, otpErr, verifyOtp 
         {otpErr && <p className="mt-1 text-sm text-red-600">{otpErr}</p>}
         <p className="text-sm">OTP Error Code:- 8899 - Something unexpected happened</p>
       </div>
-
+      {/* Submission of OTP -123456(demo) */}
       <div className="flex gap-2">
         <button
           type="submit"

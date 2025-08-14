@@ -4,19 +4,23 @@ import { toast } from "react-toastify";
 import { AadhaarRe, OTPRe, PANRe, DOBRe } from "../utlis/validators";
 
 export function useRegistration(defaultValues) {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1); // State of level step
   const [loading, setLoading] = useState(false);
 
+  // form state
   const [form, setForm] = useState({
     aadhaar: defaultValues?.aadhaar || "",
     name: defaultValues?.name || "",
     consent: true,
   });
+  // Error state
   const [err, setErr] = useState("");
 
-  const [otp, setOtp] = useState("");
+  // Otp state
+  const [otp, setOtp] = useState(""); 
   const [otpErr, setOtpErr] = useState("");
 
+  // State to store Pan Data
   const [orgType, setOrgType] = useState("");
   const [pan, setPan] = useState("");
   const [nameAsPerPan, setNameAsPerPan] = useState("");
@@ -24,6 +28,7 @@ export function useRegistration(defaultValues) {
   const [panConsent, setPanConsent] = useState(false);
   const [panErr, setPanErr] = useState("");
 
+  // Validate Aadhaar
   const validAadhaar = AadhaarRe.test(form.aadhaar);
   const canSendOtp = validAadhaar && form.consent && !loading;
 
@@ -34,7 +39,8 @@ export function useRegistration(defaultValues) {
     setForm((f) => ({ ...f, [key]: val }));
   }
 
-  async function sendOtp(e) {
+  // function to sendOtp
+  async function sendOtp(e) { 
     e?.preventDefault?.();
     if (!validAadhaar) return setErr("Enter a valid 12-digit Aadhaar");
     if (!form.consent) return setErr("Please accept the consent");
@@ -52,6 +58,7 @@ export function useRegistration(defaultValues) {
     }
   }
 
+  // Function of verifyOtp
   async function verifyOtp(e) {
     e?.preventDefault?.();
     if (!OTPRe.test(otp)) {
@@ -71,6 +78,7 @@ export function useRegistration(defaultValues) {
     }
   }
 
+  // function to validate Pan data
   async function validatePan(e, onComplete) {
     e?.preventDefault?.();
     const upPan = pan.toUpperCase();
@@ -105,6 +113,7 @@ export function useRegistration(defaultValues) {
     }
   }
 
+  // Reset All Data 
   function resetAll() {
     setStep(1);
     setForm({ aadhaar: "", name: "", consent: true });
@@ -119,8 +128,8 @@ export function useRegistration(defaultValues) {
     setPanErr("");
   }
 
+  // Returning the final states 
   return {
- 
     step, loading,
     form, err,
     otp, otpErr,

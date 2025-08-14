@@ -1,5 +1,6 @@
 import AadhaarCard from "./components/AadhaarCard";
 import PanCard from "./components/PanCard";
+import StepProgressBar from "./components/StepProgressBar";
 import SubmissionCard from "./components/SubmissionCard";
 import { useRegistration } from "./hooks/useRegistration";
 import { ToastContainer } from "react-toastify";
@@ -25,7 +26,11 @@ export default function App() {
   return (
     <div>
       <ToastContainer position="top-right" autoClose={3000} />
+      {/* Navbar component */}
       <Navbar />
+      <div className="mt-3 mb-4">
+        <StepProgressBar step={step} steps={["Aadhaar", "OTP", "PAN", "Submit"]} />
+      </div>
       <div className="m-5 lg:px-40 lg:py-10">
         <AadhaarCard
           form={form}

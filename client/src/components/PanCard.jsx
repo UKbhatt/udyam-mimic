@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 export default function PanCard({
   visible, loading, panLocked,
   orgType, setOrgType,
@@ -7,7 +8,8 @@ export default function PanCard({
   panConsent, setPanConsent,
   panErr, validatePan,
 }) {
-  if (!visible) return null;
+  if (!visible)
+    return null;
 
   return (
     <div className="py-5">
@@ -15,7 +17,7 @@ export default function PanCard({
         <div className="rounded-t-lg bg-[#1a9b3a] px-4 py-2 text-white font-semibold border-b">
           PAN Verification
         </div>
-
+        {/* Pan Card form */}
         <form onSubmit={validatePan} className="px-6 py-6 space-y-4 shadow">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -27,6 +29,7 @@ export default function PanCard({
                 disabled={panLocked}
                 onChange={(e) => setOrgType(e.target.value)}
               >
+                {/* fields */}
                 <option value="">Type of Organisation / संगठन के प्रकार</option>
                 <option value="Proprietorship">1. Proprietary / एकल स्वामित्व</option>
                 <option value="HUF">2. Hindu Undivided Family / HUF</option>
@@ -54,7 +57,6 @@ export default function PanCard({
                 onChange={(e) => setPan(e.target.value)}
               />
             </div>
-
             <div>
               <label className="block font-semibold mb-1">4.1.1 Name of PAN Holder / पैन धारक का नाम</label>
               <input
@@ -69,6 +71,7 @@ export default function PanCard({
             </div>
 
             <div>
+              {/* DOB - input */}
               <label className="block font-semibold mb-1">4.1.2 DOB or DOI as per PAN / पैन के अनुसार…</label>
               <input
                 type="text"
@@ -81,8 +84,8 @@ export default function PanCard({
               />
             </div>
           </div>
-
           <label className="flex items-start gap-2 text-[15px] text-gray-900">
+            {/* term and condition acceptance checkbox */}
             <input
               disabled={panLocked}
               type="checkbox"
@@ -97,9 +100,7 @@ export default function PanCard({
               other official purposes, in pursuance of the MSMED Act, 2006.
             </span>
           </label>
-
-          {panErr && <p className="text-sm text-red-600">{panErr}</p>}
-
+          {panErr && toast.error(panErr)}
           <button
             type="submit"
             disabled={loading}

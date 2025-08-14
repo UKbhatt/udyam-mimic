@@ -4,7 +4,7 @@ export default function SubmissionCard({
   onRestart,
 }) {
   if (!visible) return null;
-
+  // Displays is the submitted Data 
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg border border-gray-200">

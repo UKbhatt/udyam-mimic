@@ -15,7 +15,7 @@ export default function AadhaarCard({
       <div className="rounded-sm bg-blue-500 px-4 py-2 text-white font-normal border-b h-12 items-center">
         Aadhaar Verification With OTP
       </div>
-
+      {/* Aadhar form to fill details */}
       <div className="px-6 py-6 space-y-5">
         <form onSubmit={sendOtp} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -67,7 +67,6 @@ export default function AadhaarCard({
               </a>
               ) and PAN along with its Aadhaar number.
             </li>
-
           </ul>
 
           <label className="flex items-start gap-2 text-[15px] text-gray-900">
@@ -108,7 +107,7 @@ export default function AadhaarCard({
           otpErr={otpErr}
           verifyOtp={verifyOtp}
         />
-
+        {/* Message on successful registration */}
         {step === 3 && (
           <p className="text-green-700 font-bold">
             Your Aadhaar has been successfully verified. You can continue Udyam Registration process.

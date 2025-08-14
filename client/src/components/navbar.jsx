@@ -42,7 +42,8 @@ export default function Navbar() {
 
           <ul className="hidden md:flex items-center gap-8 font-semibold">
             <li className="relative group cursor-pointer text-white">
-              <span className="text-[15px]">HOME</span>
+              <span className="text-[15px]">HOME</span> 
+              {/* HOme navigtion - current page */}
               <span
                 className="pointer-events-none absolute left-0 -bottom-1 h-[2px] w-full 
                 bg-white scale-x-100 origin-left transition-transform duration-300 ease-out group-hover:scale-x-100"
@@ -87,9 +88,8 @@ export default function Navbar() {
             )}
           </button>
         </div>
-
-        <div
-          id="mobile-menu"
+      {/* Other options */}
+        <div id="mobile-menu"
           className={`md:hidden overflow-hidden transition-[max-height] duration-300 ${open ? "max-h-96" : "max-h-0"}`}
           aria-hidden={!open}
         >
@@ -106,7 +106,6 @@ export default function Navbar() {
                 </span>
               </a>
             </li>
-
             {menuItems.map((item) => (
               <li key={item} className="group">
                 <a
